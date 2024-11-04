@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "HostHopper",
-  "description": "Hop between hosts with ease",
-  "version": "1.0",
+  "description": "HostHopper lets developers easily switch between environments by grouping hosts with the same paths into sets. Quickly hop between dev, staging, and prod!",
+  "version": "1.0.0",
   "action": {
     "default_popup": "index.html",
     "default_icon": "icon.png"
