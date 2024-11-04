@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css'
 import { getCurrentTab } from './utils/getCurrentTab';
+import Footer from './components/Footer';
 
 type HopperHost = {
   label: string;
@@ -11,23 +12,11 @@ type HopperHub = {
   [hubId: string]: HopperHost[];
 }
 
-async function handleGoto(HopperHost: HopperHost) {
-  const tab = await getCurrentTab();
-  if (!tab || !tab.url) {
-    return;
-  }
-
-  const url = new URL(tab.url);
-
-  chrome.tabs.update({
-    url: HopperHost.host + url.pathname
-  })
-};
-
 function App() {
   const [newHost, setNewHost] = useState('');
   const [newHostLabel, setNewHostLabel] = useState('');
   const [hopperHub, setHopperHub] = useState<HopperHub>({});
+  const [path, setPath] = useState('');
   const [hubId, setHubId] = useState('');
 
   function handleAddHost(e: React.FormEvent) {
@@ -65,7 +54,7 @@ function App() {
     getCurrentTab().then((tab) => {
       if (tab && tab.url) {
         const url = new URL(tab.url);
-        // hubId is current host
+        setPath(url.pathname);
         setHubId(url.hostname);
       }
     });
@@ -76,30 +65,39 @@ function App() {
 
   return (
     <>
-      <h2>HopperHub:</h2>
       <div className="hophub">
         {hostsInHub.length > 0 ?
           hostsInHub.map((host) =>
             <div>
-              <button onClick={() => handleGoto(host)}>Goto {host.label}</button>
+              <a href={host.host + path}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={host.host + path}
+              >{host.label}</a>
               <button className="removeBtn" onClick={() => handleRemove(host)}>-</button>
             </div>
           )
           :
-          <p>No Hosts in Hub.</p>
+          <p>No Hosts for this site</p>
         }
       </div>
 
-      <h2>Add Host:</h2>
       <form onSubmit={handleAddHost}>
-        <label htmlFor="hostlabel">Name:</label>
-        <input type="text" placeholder="Name" value={newHostLabel} onChange={(e) => setNewHostLabel(e.target.value)} />
+        <div>
+          <label htmlFor="hostlabel">Name:</label>
+          <input
+            required
+            type="text" placeholder="Name" value={newHostLabel} onChange={(e) => setNewHostLabel(e.target.value)} />
 
-        <label htmlFor="host">Host:</label>
-        <input type="text" placeholder="http(s)://..." value={newHost} onChange={(e) => setNewHost(e.target.value)} />
-
-        <button type="submit">Add to Hub</button>
+          <label htmlFor="host">Host:</label>
+          <input
+            required
+            pattern="https?://.*"
+            type="text" placeholder="https://example.com" value={newHost} onChange={(e) => setNewHost(e.target.value)} />
+        </div>
+        <button type="submit">Add new Host</button>
       </form>
+      <Footer />
     </>
   )
 }
