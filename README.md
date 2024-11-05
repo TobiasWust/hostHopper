@@ -1,50 +1,43 @@
-# React + TypeScript + Vite
+# HostHopper
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**HostHopper** is a Chrome extension designed for developers who need to quickly switch between different environments (e.g., development, staging, production) while maintaining the same path. With HostHopper, you can group hosts into sets and effortlessly hop between them, making testing and comparing environments easier and faster.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Quick Host Switching**: Add hosts to sets and switch between them with a single click.
+- **Path Preservation**: Keep the same path when jumping between environments, so you can test the exact same page across hosts.
+- **Environment Comparison**: Seamlessly move between development, staging, and production to compare functionality and UI.
+- **Streamlined Workflow**: Save time on manual navigation and improve your development productivity.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+---
 
-- Configure the top-level `parserOptions` property like this:
+## Installation
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+This extension is built with **Vite** and **React**.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Steps
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/TobiasWust/hostHopper.git
+1. **Install dependencies**:
+   ```bash
+   npm install
+1. **Build the extension:**:
+   ```bash
+   npm run build
+1. **Load the extension in Chrome**:
+    - Open Chrome and go to chrome://extensions/.
+    - Enable Developer mode (toggle it on in the top-right corner).
+    - Click on Load unpacked and select the dist folder from the repository.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+---
+
+## About the Developer
+
+I'm a freelance developer available for hire! I specialize in building custom software solutions and Chrome extensions like HostHopper. If you're interested in working together, feel free to check out my portfolio and contact me through my website:
+
+[**wust.dev**](https://wust.dev)
+
